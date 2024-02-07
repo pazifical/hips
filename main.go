@@ -79,6 +79,7 @@ func uncover() error {
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
 	_, err = f.Write(payload)
 	if err != nil {
