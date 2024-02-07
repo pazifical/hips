@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 var suffix = ".jpg"
@@ -70,8 +71,11 @@ func uncover() error {
 		return err
 	}
 
+	dir, filename := filepath.Split(fileToUncover)
+	newFilepath := filepath.Join(dir, filename[:len(filename)-len(suffix)])
+
 	payload := data[len(carrier):]
-	f, err := os.Create(fileToUncover[:len(fileToUncover)-len(suffix)])
+	f, err := os.Create(newFilepath)
 	if err != nil {
 		return err
 	}
